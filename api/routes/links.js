@@ -3,6 +3,7 @@ var router = express.Router();
 
 const MongoClient = require("../mongodb");
 const linksModel = require('../models/links');
+const _ = require('lodash');
 
 /** Get all Links for a user */
 router.get('/', async function(req, res, next) {
@@ -16,12 +17,20 @@ router.get('/', async function(req, res, next) {
         console.log('connected');
         const collection = mongo.db('linksta').collection('links');
 
+        // get all of the links for this user
         const linksDocuments = await collection.find({"uid" : uid}).toArray();
         console.log(linksDocuments);
 
+        // group the links by collection id
+        const groupedLinks = _.groupBy(linksDocuments, "category_id");
+        console.log(groupedLinks);
+
+        
+
         res.status(200);
-        res.json(linksDocuments);
+        res.json(groupedLinks);
     } catch (err) {
+        console.log(err);
         res.status(500);
         res.json({"err": err});
     } finally {
