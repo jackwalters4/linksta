@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-var MongoClient = require("../mongodb");
+const MongoClient = require("../mongodb");
+const linksModel = require('../models/links');
 
 /** Get all Links for a user */
 router.get('/', async function(req, res, next) {
@@ -12,6 +13,7 @@ router.get('/', async function(req, res, next) {
 
     try {
         await mongo.connect();
+        console.log('connected');
         const collection = mongo.db('linksta').collection('links');
 
         const linksDocuments = await collection.find({"uid" : uid}).toArray();
@@ -22,8 +24,57 @@ router.get('/', async function(req, res, next) {
     } catch (err) {
         res.status(500);
         res.json({"err": err});
+    } finally {
+        mongo.close();
     }
 
-  });
+});
+
+/** Add a new link for a user */
+router.post('/', async function(req, res, next) {
+
+    const uid = req.body.uid;
+    const category_id = req.body.category_id;
+    const title = req.body.title;
+    const url = req.body.url;
+    const note = req.body.note;
+
+    const newLink = new linksModel({
+        uid: uid,
+        category_id: category_id,
+        title: title,
+        url: url,
+        note: note
+    });
+
+    const mongo = MongoClient();
+
+    try {
+        await mongo.connect();
+        console.log('connected');
+        const collection = mongo.db('linksta').collection('links');
+
+        const res = await collection.insertOne(newLink);
+
+        //res.acknowledged ?
+        console.log(res);
+
+        if (res.acknowledged) {
+            res.status(200);
+            res.json(res.insertedId);
+        } else {
+            res.status(500);
+            res.json({"eeerr": "failed to inset"});
+        }
+
+    } catch (err) {
+        res.status(500);
+        res.json({"err": err});
+    } finally {
+        mongo.close();
+    }
+
+
+});
 
   module.exports = router;
