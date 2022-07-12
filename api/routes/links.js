@@ -19,16 +19,42 @@ router.get('/', async function(req, res, next) {
 
         // get all of the links for this user
         const linksDocuments = await collection.find({"uid" : uid}).toArray();
-        console.log(linksDocuments);
 
         // group the links by collection id
         const groupedLinks = _.groupBy(linksDocuments, "category_id");
-        console.log(groupedLinks);
 
-        
+        // format the groupedLinks in array of form:
+        /**
+          [
+            {
+                category_id: “”,
+                links: [“”, “”, “”]
+            },
+
+            {
+                category_id: “”,
+                links: [“”, “”, “”]
+            },
+
+            {
+                category_id: “”,
+                links: [“”, “”, “”]
+            }
+           ]
+         */
+
+        const result= []
+        for (const [key, value] of Object.entries(groupedLinks)) {
+
+            result.push({
+              category_id: key,
+              links: value
+            })
+            
+        }
 
         res.status(200);
-        res.json(groupedLinks);
+        res.json(result);
     } catch (err) {
         console.log(err);
         res.status(500);
