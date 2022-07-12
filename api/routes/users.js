@@ -15,7 +15,7 @@ router.get('/', async function(req, res, next) {
     await mongo.connect();
     console.log('connected');
 
-    // "62ccc3518f2bb12d96456479"
+    // existing user is "62ccc3518f2bb12d96456479"
 
     const collection = mongo.db('linksta').collection('users');
     const user = await collection.findOne({"_id" : uid});
@@ -28,7 +28,9 @@ router.get('/', async function(req, res, next) {
     console.log('failed to connect');
     res.status(500);
     res.json({"err": err});
-  }
+  } finally {
+    mongo.close();
+}
 
 });
 

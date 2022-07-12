@@ -33,11 +33,7 @@ router.get('/', async function(req, res, next) {
 /** Add a new link for a user */
 router.post('/', async function(req, res, next) {
 
-    const uid = req.body.uid;
-    const category_id = req.body.category_id;
-    const title = req.body.title;
-    const url = req.body.url;
-    const note = req.body.note;
+    const { uid, category_id, title, url, note } = req.body;
 
     const newLink = new linksModel({
         uid: uid,
@@ -77,4 +73,4 @@ router.post('/', async function(req, res, next) {
 
 });
 
-  module.exports = router;
+module.exports = router;
