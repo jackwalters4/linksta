@@ -1,0 +1,15 @@
+.header-container {
+    overflow: hidden;
+    width: 100%;
+}
+
+.header-title {
+    float: left;
+    margin-right: 10%;
+}
+
+.add-btn {
+    float: left;
+    margin-left: 10%;
+    transform: scale(1.8);
+}

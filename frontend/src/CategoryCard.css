@@ -6,7 +6,8 @@
     margin-left: 6%;
     margin-bottom: 1rem;
     border-radius: 10px;
-    float: left
+    float: left;
+    overflow: hidden;
   }
 
   .card-header {
