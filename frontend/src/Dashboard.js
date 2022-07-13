@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEffect, useState  } from 'react';
+import CategoryCard from './CategoryCard';
 
 export default function Dashboard() {
 
@@ -43,19 +44,9 @@ export default function Dashboard() {
 
     return categoryMap === null ?
         (<p1>loading ...</p1>) : 
-        (<div>
+        (<div className='dashboard'>
             {categoryMap.map((category, index) => (
-                <div key={index}>
-                    <h1>{category.category}</h1>
-                    <div>
-                        {category.links.map((link, i) => (
-                            <div>
-                            <a key={i} href={link.url}>{link.title}</a>
-                            <br></br>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                <CategoryCard key={index} category={category}/>
             ))}
         </div>)
 

@@ -1,0 +1,14 @@
+.category-body {
+    width: 25%;
+    height: 30%;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    margin-top: 1rem;
+    margin-left: 6%;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    float: left
+  }
+
+  .card-header {
+    text-align: center;
+  }
