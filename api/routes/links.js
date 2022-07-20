@@ -85,14 +85,14 @@ router.post('/', async function(req, res, next) {
         console.log('connected');
         const collection = mongo.db('linksta').collection('links');
 
-        const res = await collection.insertOne(newLink);
+        const response = await collection.insertOne(newLink);
 
         //res.acknowledged ?
-        console.log(res);
+        console.log(response);
 
-        if (res.acknowledged) {
+        if (response.acknowledged) {
             res.status(200);
-            res.json(res.insertedId);
+            res.json({"great":"success"});
         } else {
             res.status(500);
             res.json({"eeerr": "failed to inset"});
@@ -100,6 +100,7 @@ router.post('/', async function(req, res, next) {
 
     } catch (err) {
         res.status(500);
+        console.log(err);
         res.json({"err": err});
     } finally {
         mongo.close();
