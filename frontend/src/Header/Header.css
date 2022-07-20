@@ -1,14 +1,19 @@
 .header-container {
-    width: 100%;
+    line-height: 50px;
+    width: 400px;
+    vertical-align: middle;
+    display:table;
 }
 
 .header-title {
+    display: table-cell;
+    vertical-align: middle;
     float: left;
     margin-right: 10%;
+    margin-left: 5%;
 }
 
 .add-btn {
-    float: left;
     margin-left: 10%;
-    transform: scale(1.8);
+    transform: scale(1.5);
 }

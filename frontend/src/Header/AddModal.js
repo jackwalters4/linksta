@@ -13,10 +13,13 @@ const AddModal = (props) => {
                         <IconButton className='close-modal-button' onClick={() => props.setShowModal(false)} size="large">
                             <Close style={{ color: "black" }}/>
                         </IconButton>
-                        <h2 className='form-header'>Choose Ingredients that are out: </h2>
+                        <h2 className='form-header'>Add Link: </h2>
                     </div>
-                    <form>
-                        
+                    <form className='form-body'>
+                        <input placeholder='paste link here:' className='input-text' type="text"></input><br/><br/>
+                        <input placeholder='link title' className='input-text' type="text"></input><br/><br/>
+                        <input placeholder='category' className='input-text' type="text"></input><br/><br/>
+                        <input className='submit-button' type="submit" value="Submit"></input>
                     </form>
                 </div>
             </div>

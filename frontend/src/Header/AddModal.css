@@ -26,8 +26,26 @@
   .form-header {
     margin-left: 2%;
     display: inline-block;
+    margin-bottom: 10%;
   }
   
   .modal-header {
     width: 100%;
+  }
+
+  .form-body {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .input-text {
+    width: 75%;
+    height: 25px;
+    margin-left: 5%;
+  }
+
+  .submit-button {
+    align-content: center;
   }
