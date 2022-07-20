@@ -32,10 +32,16 @@ const AddModal = (props) => {
                 note: notes	})
         }
 
+        // close modal
         props.setShowModal(false)
+
+        // Confetti Emoji animation when link is added  
 
         const response = await fetch('http://localhost:8000/links', requestOptions);
         console.log(response);
+
+        // reset state variables to empty string ??
+        // do some eerror handling stuff
     }
 
 

@@ -87,7 +87,6 @@ router.post('/', async function(req, res, next) {
 
         const response = await collection.insertOne(newLink);
 
-        //res.acknowledged ?
         console.log(response);
 
         if (response.acknowledged) {
