@@ -32,6 +32,8 @@ const AddModal = (props) => {
                 note: notes	})
         }
 
+        props.setShowModal(false)
+
         const response = await fetch('http://localhost:8000/links', requestOptions);
         console.log(response);
     }
