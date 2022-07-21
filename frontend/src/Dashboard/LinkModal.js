@@ -23,10 +23,23 @@ const LinkModal = (props) => {
 
     const [dialogOpen, setDialogOpen] = useState(false);
 
-    const deleteButtonClicked = () => {
-        // ask the user if they definitely want to delete
+    const deleteButtonClicked = async () => {
+        
         setDialogOpen(false);
-        console.log('deleete'); 
+
+        const requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' ,
+                'Accept': 'application/json'},
+        }
+
+        const response = await fetch('http://localhost:8000/links?link_id=' + props.link._id, requestOptions);
+
+        const parsedResponse = await response.json();
+        console.log(parsedResponse);
+        
+        // we would also want to close linkModal and remove this link bubblee from the page (even before it goes through DB)
+        // can probably do this through some global / state variables for links and just removing the link from that right?
     }
 
     return (<>{props.showLinkModal ? (

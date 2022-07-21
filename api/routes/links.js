@@ -121,6 +121,8 @@ router.delete('/', async function(req, res, next) {
 
         const collection = mongo.db('linksta').collection('links');
 
+
+        // string matching right now => need to figure out ObjectID matching or just make it consistent
         const result = await collection.deleteOne({_id: link_id});
 
         if (result.deletedCount === 1) {
