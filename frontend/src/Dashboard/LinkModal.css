@@ -19,7 +19,7 @@
 
 .link-modal-header {
     width: 100%;
-  }
+}
 
 .link-form-header {
     text-align: center;
@@ -32,6 +32,30 @@
 .link-modal-body {
     margin-top: 10px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+}
+
+.link-notes-label {
+    margin-top: 35px;
+}
+
+.link-notes-section {
+    margin-top: 5px;
+    width: 300px;
+    height: 100px;
+    border:1px solid black;
+    border-radius: 10px;
+    padding: 5px 5px 5px 5px;
+}
+
+.link-modal-footer {
+    margin-top: 35px;
+    width: 100%;
+}
+
+
+.delete-link-button {
+    float: right;
 }
