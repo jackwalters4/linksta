@@ -108,4 +108,39 @@ router.post('/', async function(req, res, next) {
 
 });
 
+/** Deletee link */
+router.delete('/', async function(req, res, next) {
+    
+    const link_id = req.query.link_id;
+
+    const mongo = MongoClient();
+
+    try {
+        await mongo.connect();
+        console.log('connected');
+
+        const collection = mongo.db('linksta').collection('links');
+
+        const result = await collection.deleteOne({_id: link_id});
+
+        if (result.deletedCount === 1) {
+            console.log("Successfully deleted one document.");
+            res.status(200);
+            res.json({'greeat':'success'});
+          } else {
+            console.log("No documents matched the query. Deleted 0 documents.");
+            res.status(500);
+            res.json({'not great': 'success'});
+          }
+
+    } catch (err) {
+        console.log(err);
+        res.status(500);
+        res.json({"err": err});
+    } finally {
+        mongo.close();
+    }
+    
+})
+
 module.exports = router;
