@@ -1,6 +1,6 @@
 import IconButton from '@mui/material/IconButton';
 import AddCircle from '@mui/icons-material/AddCircle';
-import AddModal from './AddModal';
+import AddModal from '../AddModal/AddModal';
 import { useState } from 'react';
 import "./Header.css";
 

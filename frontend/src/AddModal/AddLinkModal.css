@@ -1,0 +1,16 @@
+.form-body {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .input-text {
+    width: 75%;
+    height: 25px;
+    margin-left: 5%;
+  }
+
+  .submit-button {
+    align-content: center;
+  }

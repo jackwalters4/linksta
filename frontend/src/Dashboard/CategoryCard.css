@@ -8,6 +8,7 @@
     border-radius: 10px;
     float: left;
     overflow: hidden;
+    overflow-y: auto;
   }
 
   .card-header {

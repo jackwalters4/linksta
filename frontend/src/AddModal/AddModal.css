@@ -20,7 +20,8 @@
   }
   
   .close-modal-button {
-    float: right;
+    position: absolute; 
+    right: 0;
   }
   
   .form-header {
@@ -30,22 +31,10 @@
   }
   
   .modal-header {
-    width: 100%;
+    text-align: center; 
+    position:relative; 
+    width: 100%; 
+    margin-top: 10px;
+    margin-bottom: 30px;
   }
 
-  .form-body {
-    flex-direction: column;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .input-text {
-    width: 75%;
-    height: 25px;
-    margin-left: 5%;
-  }
-
-  .submit-button {
-    align-content: center;
-  }
