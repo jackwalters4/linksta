@@ -1,6 +1,10 @@
 import LinkBubble from "./LinkBubble";
 import "./CategoryCard.css";
 
+/**
+ * Need a delete button probably
+ */
+
 const CategoryCard = (props) => {
     return (
         <div className="category-body">

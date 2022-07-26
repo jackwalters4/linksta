@@ -41,12 +41,17 @@ const AddLinkModal = (props) => {
 
 
     return (
-        <form className='form-body' onSubmit={handleSubmit}>
-            <input placeholder='paste link here:' className='input-text' type="text" value={link || ""} onChange={event => setLink(event.target.value)}></input><br/><br/>
-            <input placeholder='link title' className='input-text' type="text" value={title || ""} onChange={event => setTitle(event.target.value)}></input><br/><br/>
-            <input placeholder='category' className='input-text' type="text" value={category || ""} onChange={event => setCategory(event.target.value)}></input><br/><br/>
-            <input className='submit-button' type="submit" value="Submit"></input>
-        </form>
+        <div>
+            <form className='form-body' onSubmit={handleSubmit}>
+                <input placeholder='paste link here:' className='input-text' type="text" value={link || ""} onChange={event => setLink(event.target.value)}></input><br/><br/>
+                <div className='side-by-side'>
+                    <input placeholder='link title' className='title-input-text' type="text" value={title || ""} onChange={event => setTitle(event.target.value)}></input>
+                    <input placeholder='category' className='cat-input-text' type="text" value={category || ""} onChange={event => setCategory(event.target.value)}></input><br/><br/>
+                </div><br/><br/>
+                <textarea placeholder='notes' className='notes-input-text' type="text" value={notes || ""} onChange={event => setNotes(event.target.value)}></textarea>
+                <input className='submit-button' type="submit" value="Submit"></input>
+            </form>
+        </div>
     )
 
     // return (
