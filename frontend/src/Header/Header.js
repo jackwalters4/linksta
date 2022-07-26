@@ -21,7 +21,10 @@ const Header = () => {
             <AddModal showModal={showModal} setShowModal={setShowModal}></AddModal>
             <div className='header-container'>
                 <h1 className="header-title">Links</h1>
-                <IconButton className="add-btn" onClick={openModal}>
+                <IconButton 
+                    sx={{margin: 3,}} 
+                    className="add-btn" 
+                    onClick={openModal}>
                     <AddCircle style={{ color: "black" }}/>
                 </IconButton>
             </div>

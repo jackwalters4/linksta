@@ -7,7 +7,7 @@ const CategoryCard = (props) => {
             <h1 className="card-header">{props.category.category}</h1>
             <div>
                 {props.category.links.map((link, i) => (
-                    <LinkBubble key={i} link={link}/>
+                    <LinkBubble category={props.category} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} key={i} link={link}/>
                 ))}
             </div>
         </div>

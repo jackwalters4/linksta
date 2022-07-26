@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// import { InputLabel, Input, FormHelperText, FormControl } from '@mui/material';
 import './AddLinkModal.css';
 
 
@@ -47,6 +48,15 @@ const AddLinkModal = (props) => {
             <input className='submit-button' type="submit" value="Submit"></input>
         </form>
     )
+
+    // return (
+    //     <FormControl>
+    //         <InputLabel htmlFor="my-input">Email address</InputLabel>
+    //         <Input id="my-input" aria-describedby="my-helper-text" />
+    //         <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
+    //     </FormControl>
+
+    // )
 }
 
 export default AddLinkModal;

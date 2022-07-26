@@ -47,7 +47,7 @@ export default function Dashboard() {
         (<p1>loading ...</p1>) : 
         (<div className='dashboard-container'>
             {categoryMap.map((category, index) => (
-                <CategoryCard key={index} category={category}/>
+                <CategoryCard categoryMap={categoryMap} setCategoryMap={setCategoryMap} key={index} category={category}/>
             ))}
         </div>)
 

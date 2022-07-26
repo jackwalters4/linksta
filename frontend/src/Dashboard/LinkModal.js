@@ -26,6 +26,30 @@ const LinkModal = (props) => {
     const deleteButtonClicked = async () => {
         
         setDialogOpen(false);
+        props.setShowLinkModal(false);
+
+        /**
+      
+        remove link from state array
+         
+        props.categoryMap looks like this:
+         
+        [
+            {category: "", links: [{}, {}, ...]},
+            {category: "", links: [{}, {}, ...]}
+        ]
+
+         */
+        
+
+        const newCatMap = props.categoryMap.map(cat => {
+            if (cat.category === props.category.category) {
+                return {...cat, links: cat.links.filter(link => link._id != props.link._id)}
+            }
+            return cat;
+        });
+        
+        props.setCategoryMap(newCatMap);
 
         const requestOptions = {
             method: 'DELETE',

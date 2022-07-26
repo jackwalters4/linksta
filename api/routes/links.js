@@ -4,6 +4,7 @@ var router = express.Router();
 const MongoClient = require("../mongodb");
 const linksModel = require('../models/links');
 const _ = require('lodash');
+const ObjectId = require('mongodb').ObjectId;
 
 /** Get all Links for a user */
 router.get('/', async function(req, res, next) {
@@ -121,9 +122,7 @@ router.delete('/', async function(req, res, next) {
 
         const collection = mongo.db('linksta').collection('links');
 
-
-        // string matching right now => need to figure out ObjectID matching or just make it consistent
-        const result = await collection.deleteOne({_id: link_id});
+        const result = await collection.deleteOne({_id: ObjectId(link_id)});
 
         if (result.deletedCount === 1) {
             console.log("Successfully deleted one document.");
