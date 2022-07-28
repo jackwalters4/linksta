@@ -31,6 +31,33 @@ router.get('/', async function(req, res, next) {
 
 })
 
+/** Get all categories for a user */
+router.get('/user/', async function(req, res, next) {
+
+    const uid = req.query.uid;
+
+    const mongo = MongoClient();
+
+    try {
+        await mongo.connect();
+        console.log('connected');
+        const collection = mongo.db('linksta').collection('categories');
+
+        const categoryDocuments = collection.find({"uid" : uid});
+
+        const categories = await categoryDocuments.toArray();
+
+        res.status(200);
+        res.json(categories);
+    } catch (err) {
+        res.status(500);
+        res.json({"err": err});
+    } finally {
+        mongo.close();
+    }
+
+})
+
 /** Create a new category for a user given uid */
 router.post('/', async function(req, res, next) {
 
