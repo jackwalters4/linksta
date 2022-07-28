@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 // import { InputLabel, Input, FormHelperText, FormControl } from '@mui/material';
 import './AddLinkModal.css';
 
+/**
+ * 
+ * Need to get all categories, so I can populate the dropdown menu for categories
+ * 
+ * Make whole wrapper taller - more height
+ * 
+ */
+
 
 const AddLinkModal = (props) => {
 
@@ -15,17 +23,37 @@ const AddLinkModal = (props) => {
 
         event.preventDefault();
 
+        // get category id from name for user
+        const cat_id = props.categories.filter(cat => cat.name === category)[0]._id;
+
+        const newLink = {
+            uid: "62ccc3518f2bb12d96456479",
+            category_id: cat_id,
+            title: title,
+            url: link,
+            note: notes
+        }
+
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' ,
             'Accept': 'application/json'},
-            body: JSON.stringify({
-                uid: "62ccc3518f2bb12d96456479",
-                category_id: "ofnweifjwoeifnweoifnweoifn",
-                title: title,
-                url: link,
-                note: notes	})
+            body: JSON.stringify(newLink)
         }
+
+        // add new link to categorymap state variable so it shows immediately
+        const newCatMap = props.categoryMap.map(cat => {
+            if (cat.category === category) {
+                const links = cat.links;
+                links.push(newLink);
+                return {...cat, links: links};
+            }
+            return cat;
+        });
+
+        console.log(newCatMap);
+
+        props.setCategoryMap(newCatMap);
 
         // close modal
         props.setShowModal(false)
@@ -46,7 +74,12 @@ const AddLinkModal = (props) => {
                 <input placeholder='paste link here:' className='input-text' type="text" value={link || ""} onChange={event => setLink(event.target.value)}></input><br/><br/>
                 <div className='side-by-side'>
                     <input placeholder='link title' className='title-input-text' type="text" value={title || ""} onChange={event => setTitle(event.target.value)}></input>
-                    <input placeholder='category' className='cat-input-text' type="text" value={category || ""} onChange={event => setCategory(event.target.value)}></input><br/><br/>
+                    <select name="dog-names" id="dog-names" onChange={event => setCategory(event.target.value)}>
+                        <option value="rigatoni">Category</option>
+                        {props.categories.map((category, index) => (
+                            <option key={index} value={category.name}>{category.name}</option>
+                        ))}
+                    </select>
                 </div><br/><br/>
                 <textarea placeholder='notes' className='notes-input-text' type="text" value={notes || ""} onChange={event => setNotes(event.target.value)}></textarea>
                 <input className='submit-button' type="submit" value="Submit"></input>
@@ -54,14 +87,6 @@ const AddLinkModal = (props) => {
         </div>
     )
 
-    // return (
-    //     <FormControl>
-    //         <InputLabel htmlFor="my-input">Email address</InputLabel>
-    //         <Input id="my-input" aria-describedby="my-helper-text" />
-    //         <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
-    //     </FormControl>
-
-    // )
 }
 
 export default AddLinkModal;

@@ -1,20 +1,19 @@
 import React from 'react';
-import { useEffect, useState  } from 'react';
+import { useEffect } from 'react';
 import CategoryCard from './CategoryCard';
 import './Dashboard.css'
 
-export default function Dashboard() {
-
-    const [categoryMap, setCategoryMap] = useState(null);
-    const getRequestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' ,
-        'Accept': 'application/json'},
-    }
+const Dashboard = (props) => {
 
     useEffect (() => {
 
         async function fetchData() {
+
+            const getRequestOptions = {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' ,
+                'Accept': 'application/json'},
+            }
 
             // get all of a user's links grouped by category\
             const response = await fetch('http://localhost:8000/links?uid=62ccc3518f2bb12d96456479', getRequestOptions)
@@ -33,7 +32,7 @@ export default function Dashboard() {
                 } 
             }))
 
-            setCategoryMap(categories);
+            props.setCategoryMap(categories);
 
         }
 
@@ -43,12 +42,14 @@ export default function Dashboard() {
 
     // need global href, without localhost:3000 at the front
 
-    return categoryMap === null ?
+    return props.categoryMap === null ?
         (<p1>loading ...</p1>) : 
         (<div className='dashboard-container'>
-            {categoryMap.map((category, index) => (
-                <CategoryCard categoryMap={categoryMap} setCategoryMap={setCategoryMap} key={index} category={category}/>
+            {props.categoryMap.map((category, index) => (
+                <CategoryCard categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} key={index} category={category}/>
             ))}
         </div>)
 
 }
+
+export default Dashboard;

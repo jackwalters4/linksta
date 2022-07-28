@@ -49,7 +49,7 @@ const AddModal = (props) => {
                         </IconButton>
                     </div>
                     {alignment === 'link' ? (
-                        <AddLinkModal setShowModal={props.setShowModal}/>
+                        <AddLinkModal categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} categories={props.categories} setShowModal={props.setShowModal}/>
                     ) : null}        
                 </div>
             </div>
