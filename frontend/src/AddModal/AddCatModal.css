@@ -1,0 +1,13 @@
+.category-form-body {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cat-input-text {
+    width: 75%;
+    height: 25px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
