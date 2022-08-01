@@ -4,6 +4,7 @@ import Close from '@mui/icons-material/Close';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import AddLinkModal from './AddLinkModal';
+import AddCatModal from './AddCatModal';
 import './AddModal.css';
 
 /**
@@ -22,7 +23,6 @@ const AddModal = (props) => {
 
 
     const handleModeChange = (event, newAlignment) => {
-        console.log(newAlignment);
         if (newAlignment !== null) {
             setAlignment(newAlignment);
         }
@@ -50,7 +50,7 @@ const AddModal = (props) => {
                     </div>
                     {alignment === 'link' ? (
                         <AddLinkModal categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} categories={props.categories} setShowModal={props.setShowModal}/>
-                    ) : null}        
+                    ) : <AddCatModal categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} categories={props.categories} setShowModal={props.setShowModal}/>}        
                 </div>
             </div>
         ) : null} </>

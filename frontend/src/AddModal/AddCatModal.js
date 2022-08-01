@@ -8,9 +8,39 @@ const AddCatModal = (props) => {
 
     const handleSubmit = async (event) => {
 
-        event.preventDefault();
+        // close modal
+        props.setShowModal(false);
 
-        console.log(catName);
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' ,
+            'Accept': 'application/json'},
+            body: JSON.stringify({
+                name: catName,
+                uid: '62ccc3518f2bb12d96456479'
+            })
+        }
+
+        const response = await fetch('http://localhost:8000/categories', requestOptions)
+        const parsedResponse = await response.json();
+        console.log(parsedResponse);
+
+        const id = parsedResponse.insertedId;
+
+        // add new Category to categoryMap state variable
+        const newCatMap = [...props.categoryMap]
+        newCatMap.push({
+            category: {name: catName, _id: id, uid: '62ccc3518f2bb12d96456479'},
+            links:[]
+        });
+
+        props.setCategoryMap(newCatMap);
+
+        /**
+         * Theres a second long delay with updating the UI because we wait for the insertedId, I think it's fine for right
+         * now but just something to keep an eye on in the futuree if becomes too slow
+         */
+
 
     }
 
