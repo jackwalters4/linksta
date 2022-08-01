@@ -27,7 +27,8 @@ const LinkModal = (props) => {
         
         setDialogOpen(false);
         props.setShowLinkModal(false);
-
+        props.setShowDeleteMessage(true);
+        
         /**
       
         remove link from state array
@@ -62,8 +63,6 @@ const LinkModal = (props) => {
         const parsedResponse = await response.json();
         console.log(parsedResponse);
         
-        // we would also want to close linkModal and remove this link bubblee from the page (even before it goes through DB)
-        // can probably do this through some global / state variables for links and just removing the link from that right?
     }
 
     return (<>{props.showLinkModal ? (
@@ -102,7 +101,7 @@ const LinkModal = (props) => {
                         <Button onClick={deleteButtonClicked} autoFocus>Delete</Button>
                     </DialogActions>
                 </Dialog>
-            </div>
+            </div> 
         </div>
     ) : null}</>
     );

@@ -29,7 +29,7 @@ const LinkBubble = (props) => {
 
     return (
         <div>
-            <LinkModal category={props.category} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} showLinkModal={showLinkModal} setShowLinkModal={setShowLinkModal}link={props.link}/>
+            <LinkModal showDeleteMessage={props.showDeleteMessage} setShowDeleteMessage={props.setShowDeleteMessage} category={props.category} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} showLinkModal={showLinkModal} setShowLinkModal={setShowLinkModal}link={props.link}/>
             <button onClick={linkClicked} className="link-bubble">{props.link.title}</button>
         </div>
         
