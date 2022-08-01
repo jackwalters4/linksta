@@ -16,46 +16,48 @@ router.get('/', async function(req, res, next) {
     try {
         await mongo.connect();
         console.log('connected');
-        const collection = mongo.db('linksta').collection('links');
+        const catCollection = mongo.db('linksta').collection('categories');
+        const linkCollection = mongo.db('linksta').collection('links');
 
-        // get all of the links for this user
-        const linksDocuments = await collection.find({"uid" : uid}).toArray();
-
-        // group the links by collection id
-        const groupedLinks = _.groupBy(linksDocuments, "category_id");
-
-        // format the groupedLinks in array of form:
+        // so get categories of a user first theen retrieve all links from each category and structure likee below
+        // will also save a lot of time on frontend I think ?
+        
+        // Shape of Category Map:
         /**
           [
             {
-                category_id: “”,
-                links: [“”, “”, “”]
+                category: {id: "", name: "", ...},
+                links: [{}, {}, {}]
             },
 
             {
-                category_id: “”,
-                links: [“”, “”, “”]
+                category: {id: "", name: "", ...,
+                links: [{}, {}, {}]
             },
 
             {
-                category_id: “”,
-                links: [“”, “”, “”]
+                category: {id: "", name: "", ...,
+                links: [{}, {}, {}]
             }
            ]
+
          */
 
-        const result= []
-        for (const [key, value] of Object.entries(groupedLinks)) {
-
-            result.push({
-              category_id: key,
-              links: value
-            })
-            
-        }
+        
+        // get user's categories
+        const catDocuments = await catCollection.find({"uid" : uid}).toArray();
+       
+        // for each category, grab all the links that belong to it and structure it in shape shown above
+        const categoryMap = await Promise.all(catDocuments.map(async (cat) => {
+            const linksDocuments = await linkCollection.find({"category_id": cat._id}).toArray();
+            return {
+                category: cat,
+                links: linksDocuments
+            }
+        }));
 
         res.status(200);
-        res.json(result);
+        res.json(categoryMap);
     } catch (err) {
         console.log(err);
         res.status(500);

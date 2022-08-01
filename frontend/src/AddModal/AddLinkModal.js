@@ -18,6 +18,20 @@ const AddLinkModal = (props) => {
     const [category, setCategory] = useState('');
     const [notes, setNotes] = useState('');
 
+    /**
+     * Figure out how to make the links work - i dont know what to do with this
+     */
+
+    const linkProcessing = (event) => {
+        const linky = event.target.value;
+
+        if (linky.substring(0,8) === 'https://') {
+            setLink(linky.substring(9));
+        } else {
+            setLink(linky);
+        }
+    }
+
     // when button is clicked
     const handleSubmit = async (event) => {
 
@@ -43,7 +57,7 @@ const AddLinkModal = (props) => {
 
         // add new link to categorymap state variable so it shows immediately
         const newCatMap = props.categoryMap.map(cat => {
-            if (cat.category === category) {
+            if (cat.category.name === category) {
                 const links = cat.links;
                 links.push(newLink);
                 return {...cat, links: links};
@@ -71,7 +85,7 @@ const AddLinkModal = (props) => {
     return (
         <div>
             <form className='form-body' onSubmit={handleSubmit}>
-                <input placeholder='paste link here:' className='input-text' type="text" value={link || ""} onChange={event => setLink(event.target.value)}></input><br/><br/>
+                <input placeholder='paste link here:' className='input-text' type="text" value={link || ""} onChange={event => linkProcessing(event)}></input><br/><br/>
                 <div className='side-by-side'>
                     <input placeholder='link title' className='title-input-text' type="text" value={title || ""} onChange={event => setTitle(event.target.value)}></input>
                     <select name="dog-names" id="dog-names" onChange={event => setCategory(event.target.value)}>
