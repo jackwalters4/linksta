@@ -61,10 +61,9 @@ router.get('/user/', async function(req, res, next) {
 /** Create a new category for a user given uid */
 router.post('/', async function(req, res, next) {
 
-    const { id, uid, name } = req.body;
+    const { uid, name } = req.body;
 
     const newCategory = new categoriesModel({
-        _id: id,
         uid: uid,
         name: name
     });
@@ -76,14 +75,14 @@ router.post('/', async function(req, res, next) {
         console.log('connected');
         const collection = mongo.db('linksta').collection('categories');
 
-        const res = await collection.insertOne(newCategory);
+        const response = await collection.insertOne(newCategory);
 
         //res.acknowledged ?
-        console.log(res);
+        console.log(response);
 
-        if (res.acknowledged) {
+        if (response.acknowledged) {
             res.status(200);
-            res.json(res.insertedId);
+            res.json(response);
         } else {
             res.status(500);
             res.json({"eeerr": "failed to inset"});
@@ -91,6 +90,7 @@ router.post('/', async function(req, res, next) {
 
     } catch (err) {
         res.status(500);
+        console.log(err);
         res.json({"err": err});
     } finally {
         mongo.close();
