@@ -20,19 +20,7 @@ const Dashboard = (props) => {
             const parsedResponse = await response.json();
             console.log(parsedResponse);
 
-            /** get each categories name now -> would this be faster on the backend ? IDK */
-
-            // need to wrap this in a Promise.all kind of thing right ?
-            const categories = await Promise.all(parsedResponse.map(async (category) => {
-                const response = await fetch('http://localhost:8000/categories?id=' + category.category_id, getRequestOptions)
-                const cat = await response.json()
-                return {
-                    category: cat.name,
-                    links: category.links
-                } 
-            }))
-
-            props.setCategoryMap(categories);
+            props.setCategoryMap(parsedResponse);
 
         }
 
@@ -43,7 +31,7 @@ const Dashboard = (props) => {
     // need global href, without localhost:3000 at the front
 
     return props.categoryMap === null ?
-        (<p1>loading ...</p1>) : 
+        (<p>loading ...</p>) : 
         (<div className='dashboard-container'>
             {props.categoryMap.map((category, index) => (
                 <CategoryCard categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} key={index} category={category}/>
