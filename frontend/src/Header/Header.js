@@ -2,6 +2,7 @@ import IconButton from '@mui/material/IconButton';
 import AddCircle from '@mui/icons-material/AddCircle';
 import AddModal from '../AddModal/AddModal';
 import { useState, useEffect } from 'react';
+import Snackbar from '@mui/material/Snackbar';
 import "./Header.css";
 
 /** Component for the top of the screen
@@ -12,6 +13,9 @@ const Header = (props) => {
 
     const [showModal, setShowModal] = useState(false);
     const [categories, setCategories] = useState(null);
+
+    const [showAddLinkMessage, setShowAddLinkMessage] = useState(false);
+    const [showAddCatMessage, setShowAddCatMessage] = useState(false);
 
     useEffect (() => {
 
@@ -39,11 +43,18 @@ const Header = (props) => {
     const openModal = () => {
         setShowModal(prev => !prev);
     }
-    
 
+    const handleMessageClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setShowAddLinkMessage(false);
+    };
+    
     return categories === null ? (null) : (
         <div>
-            <AddModal categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} categories={categories} showModal={showModal} setShowModal={setShowModal}></AddModal>
+            <AddModal setShowAddCatMessage={setShowAddCatMessage} setShowAddLinkMessage={setShowAddLinkMessage} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} categories={categories} showModal={showModal} setShowModal={setShowModal}></AddModal>
             <div className='header-container'>
                 <h1 className="header-title">Links</h1>
                 <IconButton 
@@ -53,6 +64,18 @@ const Header = (props) => {
                     <AddCircle style={{ color: "black" }}/>
                 </IconButton>
             </div>
+            <Snackbar
+                open={showAddLinkMessage}
+                autoHideDuration={4000}
+                onClose={handleMessageClose}
+                message="Link Added"
+            />
+            <Snackbar
+                open={showAddCatMessage}
+                autoHideDuration={4000}
+                onClose={handleMessageClose}
+                message="Category Added"
+            />
         </div>
         
     )

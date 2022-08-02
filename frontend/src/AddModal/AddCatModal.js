@@ -10,6 +10,7 @@ const AddCatModal = (props) => {
 
         // close modal
         props.setShowModal(false);
+        props.setShowAddCatMessage(true);
 
         const requestOptions = {
             method: 'POST',

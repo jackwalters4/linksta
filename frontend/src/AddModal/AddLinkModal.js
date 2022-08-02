@@ -72,6 +72,9 @@ const AddLinkModal = (props) => {
         // close modal
         props.setShowModal(false)
 
+        // show link added message
+        props.setShowAddLinkMessage(true);
+
         // Confetti Emoji animation when link is added  
 
         const response = await fetch('http://localhost:8000/links', requestOptions);

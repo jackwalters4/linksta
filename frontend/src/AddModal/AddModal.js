@@ -49,8 +49,8 @@ const AddModal = (props) => {
                         </IconButton>
                     </div>
                     {alignment === 'link' ? (
-                        <AddLinkModal categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} categories={props.categories} setShowModal={props.setShowModal}/>
-                    ) : <AddCatModal categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} categories={props.categories} setShowModal={props.setShowModal}/>}        
+                        <AddLinkModal setShowAddLinkMessage={props.setShowAddLinkMessage} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} categories={props.categories} setShowModal={props.setShowModal}/>
+                    ) : <AddCatModal setShowAddCatMessage={props.setShowAddCatMessage} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} categories={props.categories} setShowModal={props.setShowModal}/>}        
                 </div>
             </div>
         ) : null} </>

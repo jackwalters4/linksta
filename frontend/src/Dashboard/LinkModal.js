@@ -25,6 +25,7 @@ const LinkModal = (props) => {
 
     const deleteButtonClicked = async () => {
         
+        // close dialog, modal and show delete message (component stored in Category Card)
         setDialogOpen(false);
         props.setShowLinkModal(false);
         props.setShowDeleteMessage(true);
