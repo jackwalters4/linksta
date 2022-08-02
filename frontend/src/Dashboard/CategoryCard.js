@@ -24,7 +24,7 @@ const CategoryCard = (props) => {
             <h1 className="card-header">{props.category.category.name}</h1>
             <div>
                 {props.category.links.map((link, i) => (
-                    <LinkBubble showDeleteMessage={showDeleteMessage} setShowDeleteMessage={setShowDeleteMessage} category={props.category} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} key={i} link={link}/>
+                    <LinkBubble catNumber={props.catNumber} showDeleteMessage={showDeleteMessage} setShowDeleteMessage={setShowDeleteMessage} category={props.category} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} key={i} link={link}/>
                 ))}
             </div>
             <Snackbar

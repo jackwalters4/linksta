@@ -34,7 +34,7 @@ const Dashboard = (props) => {
         (<p>loading ...</p>) : 
         (<div className='dashboard-container'>
             {props.categoryMap.map((category, index) => (
-                <CategoryCard categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} key={index} category={category}/>
+                <CategoryCard catNumber={index + 1} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} key={index} category={category}/>
             ))}
         </div>)
 
