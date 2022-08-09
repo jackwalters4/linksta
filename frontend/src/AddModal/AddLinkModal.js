@@ -22,13 +22,14 @@ const AddLinkModal = (props) => {
      * Figure out how to make the links work - i dont know what to do with this
      */
 
-    const linkProcessing = (event) => {
-        const linky = event.target.value;
+    const linkProcessing = (link) => {
 
-        if (linky.substring(0,8) === 'https://') {
-            setLink(linky.substring(9));
+        // need to add https:// to the front of urls that don't have it (or http)
+
+        if (link.substring(0,8) !== 'https://' && link.substring(0,7) !== 'http://') {
+            return 'https://' + link;
         } else {
-            setLink(linky);
+            return link;
         }
     }
 
@@ -44,7 +45,7 @@ const AddLinkModal = (props) => {
             uid: "62ccc3518f2bb12d96456479",
             category_id: cat_id,
             title: title,
-            url: link,
+            url: linkProcessing(link),
             note: notes
         }
 
@@ -88,18 +89,18 @@ const AddLinkModal = (props) => {
     return (
         <div>
             <form className='form-body' onSubmit={handleSubmit}>
-                <input placeholder='paste link here:' className='input-text' type="text" value={link || ""} onChange={event => linkProcessing(event)}></input><br/><br/>
+                <input placeholder='paste link here:' className='input-text' type="text" value={link || ""} onChange={event => setLink(event.target.value)}></input><br/><br/>
                 <div className='side-by-side'>
                     <input placeholder='link title' className='title-input-text' type="text" value={title || ""} onChange={event => setTitle(event.target.value)}></input>
-                    <select name="dog-names" id="dog-names" onChange={event => setCategory(event.target.value)}>
-                        <option value="rigatoni">Category</option>
+                    <select className='category-select' onChange={event => setCategory(event.target.value)}>
+                        <option value="category">Category</option>
                         {props.categories.map((category, index) => (
                             <option key={index} value={category.name}>{category.name}</option>
                         ))}
                     </select>
                 </div><br/><br/>
                 <textarea placeholder='notes' className='notes-input-text' type="text" value={notes || ""} onChange={event => setNotes(event.target.value)}></textarea>
-                <input className='submit-button' type="submit" value="Submit"></input>
+                <input className='submit-button' type="submit" value="Add!"></input>
             </form>
         </div>
     )

@@ -25,6 +25,11 @@
     margin-right: 5%;
   }
 
+  .category-select {
+    height: 30px;
+    width: 35%;
+  }
+
   .cat-input-text {
     height: 25px;
     width: 35%;
@@ -38,4 +43,6 @@
 
   .submit-button {
     align-content: center;
+    height: 35px;
+    
   }
