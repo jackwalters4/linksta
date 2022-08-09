@@ -50,7 +50,7 @@ const AddModal = (props) => {
                     </div>
                     {alignment === 'link' ? (
                         <AddLinkModal setShowAddLinkMessage={props.setShowAddLinkMessage} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} categories={props.categories} setShowModal={props.setShowModal}/>
-                    ) : <AddCatModal setShowAddCatMessage={props.setShowAddCatMessage} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} categories={props.categories} setShowModal={props.setShowModal}/>}        
+                    ) : <AddCatModal setShowAddCatMessage={props.setShowAddCatMessage} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} setCategories={props.setCategories} categories={props.categories} setShowModal={props.setShowModal}/>}        
                 </div>
             </div>
         ) : null} </>

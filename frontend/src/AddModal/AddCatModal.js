@@ -30,12 +30,23 @@ const AddCatModal = (props) => {
 
         // add new Category to categoryMap state variable
         const newCatMap = [...props.categoryMap]
+        const newCat = {
+            name: catName,
+             _id: id, 
+             uid: '62ccc3518f2bb12d96456479'
+        }
         newCatMap.push({
-            category: {name: catName, _id: id, uid: '62ccc3518f2bb12d96456479'},
+            category: newCat,
             links:[]
         });
 
         props.setCategoryMap(newCatMap);
+
+        // add new Category to category state variable (for category dropdown selection in AddLinkModal)
+        const newCategories = [...props.categories];
+        newCategories.push(newCat);
+
+        props.setCategories(newCategories);
 
         /**
          * Theres a second long delay with updating the UI because we wait for the insertedId, I think it's fine for right
