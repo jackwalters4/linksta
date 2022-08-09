@@ -9,8 +9,18 @@
     float: left;
     overflow: hidden;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
   }
 
-  .card-header {
+  .category-card-header {
+    width: 100%;
+  }
+
+  .card-title {
     text-align: center;
+  }
+
+  .delete-category-button {
+    float: right;
   }

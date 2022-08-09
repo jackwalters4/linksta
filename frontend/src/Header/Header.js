@@ -12,7 +12,6 @@ import "./Header.css";
 const Header = (props) => {
 
     const [showModal, setShowModal] = useState(false);
-    const [categories, setCategories] = useState(null);
 
     const [showAddLinkMessage, setShowAddLinkMessage] = useState(false);
     const [showAddCatMessage, setShowAddCatMessage] = useState(false);
@@ -32,7 +31,7 @@ const Header = (props) => {
             const response = await fetch('http://localhost:8000/categories/user?uid=62ccc3518f2bb12d96456479', requestOptions)
             const parsedResponse = await response.json();
 
-            setCategories(parsedResponse);
+            props.setCategories(parsedResponse);
         
         }
 
@@ -50,11 +49,12 @@ const Header = (props) => {
         }
     
         setShowAddLinkMessage(false);
+        setShowAddCatMessage(false);
     };
     
-    return categories === null ? (null) : (
+    return props.categories === null ? (null) : (
         <div>
-            <AddModal setShowAddCatMessage={setShowAddCatMessage} setShowAddLinkMessage={setShowAddLinkMessage} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} setCategories={setCategories} categories={categories} showModal={showModal} setShowModal={setShowModal}></AddModal>
+            <AddModal setShowAddCatMessage={setShowAddCatMessage} setShowAddLinkMessage={setShowAddLinkMessage} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} setCategories={props.setCategories} categories={props.categories} showModal={showModal} setShowModal={setShowModal}></AddModal>
             <div className='header-container'>
                 <h1 className="header-title">Linksta</h1>
                 <IconButton 

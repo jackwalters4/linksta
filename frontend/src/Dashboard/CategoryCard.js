@@ -1,6 +1,14 @@
 import { useState } from 'react';
 import LinkBubble from "./LinkBubble";
 import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
 import "./CategoryCard.css";
 
 /**
@@ -10,6 +18,7 @@ import "./CategoryCard.css";
 const CategoryCard = (props) => {
 
     const [showDeleteMessage, setShowDeleteMessage] = useState(false);
+    const [dialogOpen, setDialogOpen] = useState(false);
 
     const handleDeleteMessageClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -18,10 +27,63 @@ const CategoryCard = (props) => {
     
         setShowDeleteMessage(false);
     };
+
+    const deleteCategory = async () => {
+        console.log(`delete category ${props.category.category._id}`);
+
+        console.log(props.categories);
+
+        // close dialog, show delete category toast
+        setDialogOpen(false);
+        props.setShowCatDeleteMessage(true);
+
+        // remove category from categoryMap state variable
+        const newCatMap = props.categoryMap.filter(category => category.category._id != props.category.category._id);
+        props.setCategoryMap(newCatMap);
+
+        // remove category from categories state variable (dropdown categories in AddLinkModal uses this)
+        const newCats = props.categories.filter(category => category._id != props.category.category._id);
+        props.setCategories(newCats);
+
+        // call api to delete categories
+        const requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' ,
+                'Accept': 'application/json'},
+        }
+
+        const response = await fetch('http://localhost:8000/categories?category_id=' + props.category.category._id, requestOptions);
+
+        const parsedResponse = await response.json();
+        console.log(parsedResponse);
+
+    };
     
     return (
         <div className="category-body">
-            <h1 className="card-header">{props.category.category.name}</h1>
+            <div className='category-card-header'>
+                <h1 className="card-title">{props.category.category.name}</h1>
+                <IconButton className='delete-category-button' onClick={() => setDialogOpen(true)}>
+                    <DeleteForeverIcon style={{ color: "black" }}/>
+                </IconButton>
+            </div>
+            <Dialog
+                open={dialogOpen}
+                onClose={() => setDialogOpen(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle>Are you sure you want to delete {props.category.category.name}?</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        This will delete all links under the category as well
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setDialogOpen(false)}>Cancel</Button>
+                    <Button onClick={deleteCategory} autoFocus>Delete</Button>
+                </DialogActions>
+            </Dialog>
             <div>
                 {props.category.links.map((link, i) => (
                     <LinkBubble catNumber={props.catNumber} showDeleteMessage={showDeleteMessage} setShowDeleteMessage={setShowDeleteMessage} category={props.category} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} key={i} link={link}/>

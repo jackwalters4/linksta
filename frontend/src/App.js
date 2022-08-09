@@ -6,11 +6,12 @@ import Header from './Header/Header';
 function App() {
 
   const [categoryMap, setCategoryMap] = useState(null);
+  const [categories, setCategories] = useState(null);
 
   return (
     <div className='background'>
-      <Header categoryMap={categoryMap} setCategoryMap={setCategoryMap}/>
-      <Dashboard categoryMap={categoryMap} setCategoryMap={setCategoryMap}/>
+      <Header categories={categories} setCategories={setCategories} categoryMap={categoryMap} setCategoryMap={setCategoryMap}/>
+      <Dashboard categories={categories} setCategories={setCategories} categoryMap={categoryMap} setCategoryMap={setCategoryMap}/>
     </div>
   );
 }

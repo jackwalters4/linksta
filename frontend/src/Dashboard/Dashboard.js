@@ -1,9 +1,12 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import CategoryCard from './CategoryCard';
+import Snackbar from '@mui/material/Snackbar';
 import './Dashboard.css'
 
 const Dashboard = (props) => {
+
+    const [showCatDeleteMessage, setShowCatDeleteMessage] = useState(false);
 
     useEffect (() => {
 
@@ -28,14 +31,28 @@ const Dashboard = (props) => {
 
     }, [])
 
+    const handleDeleteMessageClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setShowCatDeleteMessage(false);
+    };
+
     // need global href, without localhost:3000 at the front
 
     return props.categoryMap === null ?
         (<p>loading ...</p>) : 
         (<div className='dashboard-container'>
             {props.categoryMap.map((category, index) => (
-                <CategoryCard catNumber={index + 1} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} key={index} category={category}/>
+                <CategoryCard categories={props.categories} setCategories={props.setCategories} catNumber={index + 1} showCatDeleteMessage={showCatDeleteMessage} setShowCatDeleteMessage={setShowCatDeleteMessage} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} key={index} category={category}/>
             ))}
+            <Snackbar
+                open={showCatDeleteMessage}
+                autoHideDuration={4000}
+                onClose={handleDeleteMessageClose}
+                message="Category Deleted"
+            />
         </div>)
 
 }
