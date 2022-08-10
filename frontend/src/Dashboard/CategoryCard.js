@@ -19,6 +19,15 @@ const CategoryCard = (props) => {
 
     const [showDeleteMessage, setShowDeleteMessage] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [isHovering, setIsHovering] = useState(false);
+
+    const handleMouseOver = () => {
+        setIsHovering(true);
+    }
+
+    const handleMouseOut = () => {
+        setIsHovering(false);
+    }
 
     const handleDeleteMessageClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -27,15 +36,22 @@ const CategoryCard = (props) => {
     
         setShowDeleteMessage(false);
     };
+    
+    const dialogCancelBtnClicked = () => {
+        // close dialog and no longer hovering (takes away delete button)
+        setDialogOpen(false);
+        setIsHovering(false);
+    }
 
     const deleteCategory = async () => {
         console.log(`delete category ${props.category.category._id}`);
 
         console.log(props.categories);
 
-        // close dialog, show delete category toast
+        // close dialog, show delete category toast, no longer hovering over CategoryCard
         setDialogOpen(false);
         props.setShowCatDeleteMessage(true);
+        setIsHovering(false);
 
         // remove category from categoryMap state variable
         const newCatMap = props.categoryMap.filter(category => category.category._id != props.category.category._id);
@@ -60,12 +76,9 @@ const CategoryCard = (props) => {
     };
     
     return (
-        <div className="category-body">
+        <div className="category-body" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
             <div className='category-card-header'>
-                <h1 className="card-title">{props.category.category.name}</h1>
-                <IconButton className='delete-category-button' onClick={() => setDialogOpen(true)}>
-                    <DeleteForeverIcon style={{ color: "black" }}/>
-                </IconButton>
+                <h2 className="card-title">{props.category.category.name}</h2>
             </div>
             <Dialog
                 open={dialogOpen}
@@ -80,7 +93,7 @@ const CategoryCard = (props) => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => setDialogOpen(false)}>Cancel</Button>
+                    <Button onClick={dialogCancelBtnClicked}>Cancel</Button>
                     <Button onClick={deleteCategory} autoFocus>Delete</Button>
                 </DialogActions>
             </Dialog>
@@ -95,6 +108,18 @@ const CategoryCard = (props) => {
                 onClose={handleDeleteMessageClose}
                 message="Link Deleted"
             />
+            <div className='category-body-footer'>
+                {isHovering && 
+                <IconButton 
+                        sx={{margin: 1,
+                        }} 
+                        className='delete-category-button' 
+                        onClick={() => setDialogOpen(true)}
+                    >
+                        <DeleteForeverIcon style={{ color: "black" }}/>
+                </IconButton>}
+            </div>
+            
         </div>
     );
   }
