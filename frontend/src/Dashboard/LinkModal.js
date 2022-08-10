@@ -67,8 +67,8 @@ const LinkModal = (props) => {
     }
 
     const closeModalClicked = () => {
-        props.setIsHovering(false);
-        props.setShowLinkModal(false)
+        props.setShowLinkModal(false);
+        props.setLinkOpen(false);
     }
 
     return (<>{props.showLinkModal ? (
@@ -111,7 +111,7 @@ const LinkModal = (props) => {
             </div>) : 
                 (<div className='right-link-modal-wrapper'>
                     <div className='link-modal-header'>
-                        <IconButton className='close-link-modal-button' size="large" onClick={() => props.setShowLinkModal(false)}>
+                        <IconButton className='close-link-modal-button' size="large" onClick={closeModalClicked}>
                             <Close style={{ color: "black" }}/>
                         </IconButton>
                         <h2 className='link-form-header'>{props.link.title}</h2>
