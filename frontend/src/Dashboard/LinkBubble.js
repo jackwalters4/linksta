@@ -20,17 +20,10 @@ const LinkBubble = (props) => {
 
     const [showLinkModal, setShowLinkModal] = useState(false);
 
-    const linkClicked = () => {
-
-        setShowLinkModal(prev => !prev);
-
-        // open some modal with the link title up top, the link url, and the link notes
-    }
-
     return (
         <div>
-            <LinkModal catNumber={props.catNumber} showDeleteMessage={props.showDeleteMessage} setShowDeleteMessage={props.setShowDeleteMessage} category={props.category} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} showLinkModal={showLinkModal} setShowLinkModal={setShowLinkModal}link={props.link}/>
-            <button onClick={linkClicked} className="link-bubble">{props.link.title}</button>
+            <LinkModal setIsHovering={props.setIsHovering} catNumber={props.catNumber} showDeleteMessage={props.showDeleteMessage} setShowDeleteMessage={props.setShowDeleteMessage} category={props.category} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} showLinkModal={showLinkModal} setShowLinkModal={setShowLinkModal}link={props.link}/>
+            <button onClick={() => setShowLinkModal(prev => !prev)} className="link-bubble">{props.link.title}</button>
         </div>
         
     )

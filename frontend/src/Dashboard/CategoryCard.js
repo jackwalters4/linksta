@@ -19,6 +19,9 @@ const CategoryCard = (props) => {
 
     const [showDeleteMessage, setShowDeleteMessage] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
+
+    // hovering state variable for showing the delete category button or not
+    // maybe think about hovering for a number of seconds before showing the delete button ? IDK tho
     const [isHovering, setIsHovering] = useState(false);
 
     const handleMouseOver = () => {
@@ -99,7 +102,7 @@ const CategoryCard = (props) => {
             </Dialog>
             <div>
                 {props.category.links.map((link, i) => (
-                    <LinkBubble catNumber={props.catNumber} showDeleteMessage={showDeleteMessage} setShowDeleteMessage={setShowDeleteMessage} category={props.category} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} key={i} link={link}/>
+                    <LinkBubble isHovering={isHovering} setIsHovering={setIsHovering} catNumber={props.catNumber} showDeleteMessage={showDeleteMessage} setShowDeleteMessage={setShowDeleteMessage} category={props.category} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} key={i} link={link}/>
                 ))}
             </div>
             <Snackbar
@@ -111,10 +114,9 @@ const CategoryCard = (props) => {
             <div className='category-body-footer'>
                 {isHovering && 
                 <IconButton 
-                        sx={{margin: 1,
-                        }} 
                         className='delete-category-button' 
                         onClick={() => setDialogOpen(true)}
+                        size='small'
                     >
                         <DeleteForeverIcon style={{ color: "black" }}/>
                 </IconButton>}
