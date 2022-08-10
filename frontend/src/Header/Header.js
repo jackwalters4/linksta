@@ -54,7 +54,7 @@ const Header = (props) => {
     
     return props.categories === null ? (null) : (
         <div>
-            <AddModal setShowAddCatMessage={setShowAddCatMessage} setShowAddLinkMessage={setShowAddLinkMessage} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} setCategories={props.setCategories} categories={props.categories} showModal={showModal} setShowModal={setShowModal}></AddModal>
+            <AddModal {...props} setShowAddCatMessage={setShowAddCatMessage} setShowAddLinkMessage={setShowAddLinkMessage} showModal={showModal} setShowModal={setShowModal}></AddModal>
             <div className='header-container'>
                 <h1 className="header-title">Linksta</h1>
                 <IconButton 

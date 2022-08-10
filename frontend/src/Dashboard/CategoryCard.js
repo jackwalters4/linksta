@@ -106,7 +106,7 @@ const CategoryCard = (props) => {
             </Dialog>
             <div>
                 {props.category.links.map((link, i) => (
-                    <LinkBubble setLinkOpen={setLinkOpen} isHovering={isHovering} setIsHovering={setIsHovering} catNumber={props.catNumber} showDeleteMessage={showDeleteMessage} setShowDeleteMessage={setShowDeleteMessage} category={props.category} categoryMap={props.categoryMap} setCategoryMap={props.setCategoryMap} key={i} link={link}/>
+                    <LinkBubble {...props} setLinkOpen={setLinkOpen} isHovering={isHovering} setIsHovering={setIsHovering} showDeleteMessage={showDeleteMessage} setShowDeleteMessage={setShowDeleteMessage} key={i} link={link}/>
                 ))}
             </div>
             <Snackbar
