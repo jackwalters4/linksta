@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './LinkModal.css';
 import IconButton from '@mui/material/IconButton';
 import Close from '@mui/icons-material/Close';
@@ -29,6 +29,7 @@ const LinkModal = (props) => {
         setDialogOpen(false);
         props.setOpenModalId('');
         props.setShowDeleteMessage(true);
+        props.setLinkOpen(false);
         
         /**
       
@@ -73,8 +74,7 @@ const LinkModal = (props) => {
 
     return (<>{props.openModalId === props.link._id ? (
         <div className='link-modal-background'>
-            {props.catNumber % 3 != 0 ? 
-                (<div className='link-modal-wrapper'>
+            <div className='link-modal-wrapper' style={{'margin-left': props.catNumber % 3 == 0 && '-90%', 'margin-top': props.catNumber > 3 && '-75%'}}>
                 <div className='link-modal-header'>
                     <IconButton className='close-link-modal-button' size="large" onClick={closeModalClicked}>
                         <Close style={{ color: "black" }}/>
@@ -108,42 +108,7 @@ const LinkModal = (props) => {
                         <Button onClick={deleteButtonClicked} autoFocus>Delete</Button>
                     </DialogActions>
                 </Dialog>
-            </div>) : 
-                (<div className='right-link-modal-wrapper'>
-                    <div className='link-modal-header'>
-                        <IconButton className='close-link-modal-button' size="large" onClick={closeModalClicked}>
-                            <Close style={{ color: "black" }}/>
-                        </IconButton>
-                        <h2 className='link-form-header'>{props.link.title}</h2>
-                    </div>
-                    <div className='link-modal-body'>
-                        <a  className='link-modal-url' href={'//' + props.link.url}>{props.link.url.substring(0,25)}</a>
-                        <label className='link-notes-label'>Notes:</label>
-                        <div className='link-notes-section'>
-                            {props.link.note}
-                        </div>
-                    </div>
-                    <div className='link-modal-footer'>
-                        <IconButton size='large'>
-                            <EditIcon style={{ color: "black" }}/>
-                        </IconButton>
-                        <IconButton className='delete-link-button' size='large' onClick={() => setDialogOpen(true)}>
-                            <DeleteForeverIcon style={{ color: "black" }}/>
-                        </IconButton>
-                    </div>
-                    <Dialog
-                        open={dialogOpen}
-                        onClose={() => setDialogOpen(false)}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                    >
-                        <DialogTitle>Are you sure you want to delete {props.link.title}?</DialogTitle>
-                        <DialogActions>
-                            <Button onClick={() => setDialogOpen(false)}>Cancel</Button>
-                            <Button onClick={deleteButtonClicked} autoFocus>Delete</Button>
-                        </DialogActions>
-                    </Dialog>
-                </div> )}
+            </div>
         </div>     
     ) : null}</>
     );
