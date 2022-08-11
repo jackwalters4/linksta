@@ -29,7 +29,6 @@ const LinkModal = (props) => {
         setDialogOpen(false);
         props.setOpenModalId('');
         props.setShowDeleteMessage(true);
-        props.setLinkOpen(false);
         
         /**
       
@@ -69,7 +68,6 @@ const LinkModal = (props) => {
 
     const closeModalClicked = () => {
         props.setOpenModalId('');
-        props.setLinkOpen(false);
     }
 
     return (<>{props.openModalId === props.link._id ? (

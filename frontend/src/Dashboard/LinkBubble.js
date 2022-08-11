@@ -20,7 +20,6 @@ const LinkBubble = (props) => {
     const bubbleClicked = () => {
         // setShowLinkModal(prev => !prev);
         props.setOpenModalId(props.link._id);
-        props.setLinkOpen(true);
         props.setIsHovering(false);
     }
 

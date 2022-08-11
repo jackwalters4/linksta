@@ -20,14 +20,13 @@ const CategoryCard = (props) => {
 
     const [showDeleteMessage, setShowDeleteMessage] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [linkOpen, setLinkOpen] = useState(false);
 
     // hovering state variable for showing the delete category button or not
     // maybe think about hovering for a number of seconds before showing the delete button ? IDK tho
     const [isHovering, setIsHovering] = useState(false);
 
     const handleMouseOver = () => {
-        if (!linkOpen) {
+        if (props.openModalId === '') {
             setIsHovering(true);
         }
         
@@ -113,7 +112,7 @@ const CategoryCard = (props) => {
                                 <Draggable key={link._id} draggableId={link._id} index={i}>
                                     {(provided) => (
                                         <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                        <LinkBubble {...props} setLinkOpen={setLinkOpen} isHovering={isHovering} setIsHovering={setIsHovering} showDeleteMessage={showDeleteMessage} setShowDeleteMessage={setShowDeleteMessage} key={i} link={link}/>
+                                        <LinkBubble {...props} isHovering={isHovering} setIsHovering={setIsHovering} showDeleteMessage={showDeleteMessage} setShowDeleteMessage={setShowDeleteMessage} key={i} link={link}/>
                                     </li>
                                     )}
                                 </Draggable>
