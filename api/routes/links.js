@@ -94,7 +94,7 @@ router.post('/', async function(req, res, next) {
 
         if (response.acknowledged) {
             res.status(200);
-            res.json({"great":"success"});
+            res.json(response);
         } else {
             res.status(500);
             res.json({"eeerr": "failed to inset"});

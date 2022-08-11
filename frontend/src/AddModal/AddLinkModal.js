@@ -36,6 +36,11 @@ const AddLinkModal = (props) => {
     // when button is clicked
     const handleSubmit = async (event) => {
 
+        /**
+         * Need ID from DB in the state variable categoryMap so call API first and then add to state
+         * There's a second long delay (similar to one in AddCatModal) but it shouldn't be too terrible
+         */
+
         event.preventDefault();
 
         // get category id from name for user
@@ -56,17 +61,23 @@ const AddLinkModal = (props) => {
             body: JSON.stringify(newLink)
         }
 
+        const response = await fetch('http://localhost:8000/links', requestOptions);
+        const parsedResponse = await response.json();
+        console.log(parsedResponse);
+
+        const id = parsedResponse.insertedId;
+
+        const linkWithId = {...newLink, _id: id};
+
         // add new link to categorymap state variable so it shows immediately
         const newCatMap = props.categoryMap.map(cat => {
             if (cat.category.name === category) {
                 const links = cat.links;
-                links.push(newLink);
+                links.push(linkWithId);
                 return {...cat, links: links};
             }
             return cat;
         });
-
-        console.log(newCatMap);
 
         props.setCategoryMap(newCatMap);
 
@@ -77,12 +88,6 @@ const AddLinkModal = (props) => {
         props.setShowAddLinkMessage(true);
 
         // Confetti Emoji animation when link is added  
-
-        const response = await fetch('http://localhost:8000/links', requestOptions);
-        console.log(response);
-
-        // reset state variables to empty string ??
-        // do some eerror handling stuff
     }
 
 
