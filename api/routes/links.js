@@ -144,6 +144,32 @@ router.delete('/', async function(req, res, next) {
         mongo.close();
     }
     
-})
+});
+
+/** Update the category of a link */
+router.put('/category', async function(req, res, next) {
+    
+    const { link_id, new_cat_id} = req.body;
+
+    const mongo = MongoClient();
+
+    try {
+        await mongo.connect();
+        console.log('connected');
+
+        const collection = mongo.db('linksta').collection('links');
+        const result = await collection.updateOne({_id: ObjectId(link_id)}, {$set: {category_id: new_cat_id}});
+
+        res.status(200);
+        res.json(result);
+    } catch (err) {
+        console.log(err);
+        res.status(500);
+        res.json({"err": err});
+    } finally {
+        mongo.close();
+    }
+
+});
 
 module.exports = router;
