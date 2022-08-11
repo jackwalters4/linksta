@@ -26,25 +26,6 @@ const CategoryCard = (props) => {
     // maybe think about hovering for a number of seconds before showing the delete button ? IDK tho
     const [isHovering, setIsHovering] = useState(false);
 
-    // update state (in categoryMap) so that the new order of LinkBubbles is saved
-    const onDragEnd = (result) => {
-
-        // reorder links of category dependent upon result.source.index and result.destination.index (splice takes it out and puts it back in)
-        const newCatMap = props.categoryMap.map(cat => {
-            if (cat.category._id === props.category.category._id) {
-                const links = Array.from(cat.links);
-                const [reorderedLink] = links.splice(result.source.index, 1);
-                links.splice(result.destination.index, 0, reorderedLink)
-                console.log(reorderedLink);
-                console.log(links);
-                return {...cat, links: links};
-            }
-            return cat
-        });
-
-        props.setCategoryMap(newCatMap);
-    }
-
     const handleMouseOver = () => {
         if (!linkOpen) {
             setIsHovering(true);
@@ -125,8 +106,7 @@ const CategoryCard = (props) => {
                 </DialogActions>
             </Dialog>
             <div>
-                <DragDropContext onDragEnd={onDragEnd}>
-                    <Droppable droppableId={props.category.category._id}>
+                    <Droppable droppableId={props.category.category._id} type="LINK">
                         {(provided) => (
                             <ul className='link-bubble-list' {...provided.droppableProps} ref={provided.innerRef}>
                             {props.category.links.map((link, i) => (
@@ -142,7 +122,6 @@ const CategoryCard = (props) => {
                             </ul>
                         )}
                     </Droppable>
-                </DragDropContext>
             </div>
             <Snackbar
                 open={showDeleteMessage}
