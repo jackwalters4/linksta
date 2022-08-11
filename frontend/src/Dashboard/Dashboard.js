@@ -7,6 +7,7 @@ import './Dashboard.css'
 const Dashboard = (props) => {
 
     const [showCatDeleteMessage, setShowCatDeleteMessage] = useState(false);
+    const [openModalId, setOpenModalId] = useState('');
 
     useEffect (() => {
 
@@ -45,7 +46,7 @@ const Dashboard = (props) => {
         (<p>loading ...</p>) : 
         (<div className='dashboard-container'>
             {props.categoryMap.map((category, index) => (
-                <CategoryCard {...props} catNumber={index + 1} showCatDeleteMessage={showCatDeleteMessage} setShowCatDeleteMessage={setShowCatDeleteMessage} key={index} category={category}/>
+                <CategoryCard {...props} openModalId={openModalId} setOpenModalId={setOpenModalId} catNumber={index + 1} showCatDeleteMessage={showCatDeleteMessage} setShowCatDeleteMessage={setShowCatDeleteMessage} key={index} category={category}/>
             ))}
             <Snackbar
                 open={showCatDeleteMessage}

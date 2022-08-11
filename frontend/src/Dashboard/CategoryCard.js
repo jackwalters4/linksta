@@ -118,6 +118,7 @@ const CategoryCard = (props) => {
             <div className='category-body-footer'>
                 {isHovering && 
                 <IconButton 
+                        sx={{margin: 1}}
                         className='delete-category-button' 
                         onClick={() => setDialogOpen(true)}
                         size='small'

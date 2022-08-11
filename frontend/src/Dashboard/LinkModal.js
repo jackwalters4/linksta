@@ -27,7 +27,7 @@ const LinkModal = (props) => {
         
         // close dialog, modal and show delete message (component stored in Category Card)
         setDialogOpen(false);
-        props.setShowLinkModal(false);
+        props.setOpenModalId('');
         props.setShowDeleteMessage(true);
         
         /**
@@ -67,11 +67,11 @@ const LinkModal = (props) => {
     }
 
     const closeModalClicked = () => {
-        props.setShowLinkModal(false);
+        props.setOpenModalId('');
         props.setLinkOpen(false);
     }
 
-    return (<>{props.showLinkModal ? (
+    return (<>{props.openModalId === props.link._id ? (
         <div className='link-modal-background'>
             {props.catNumber % 3 != 0 ? 
                 (<div className='link-modal-wrapper'>

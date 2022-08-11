@@ -11,23 +11,22 @@
  * Is there a better place to put LinkModal ? Are we rendering it for each LinkBubble created now ?
  */
 
-// 
-import { useState } from 'react';
+
 import LinkModal from './LinkModal';
 import "./LinkBubble.css";
 
 const LinkBubble = (props) => {
 
-    const [showLinkModal, setShowLinkModal] = useState(false);
-
     const bubbleClicked = () => {
-        setShowLinkModal(prev => !prev);
+        // setShowLinkModal(prev => !prev);
+        props.setOpenModalId(props.link._id);
         props.setLinkOpen(true);
+        props.setIsHovering(false);
     }
 
     return (
         <div>
-            <LinkModal {...props} showLinkModal={showLinkModal} setShowLinkModal={setShowLinkModal}/>
+            <LinkModal {...props} />
             <button onClick={bubbleClicked} className="link-bubble">{props.link.title}</button>
         </div>
         
