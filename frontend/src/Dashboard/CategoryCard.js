@@ -9,6 +9,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import "./CategoryCard.css";
 
 /**
@@ -24,6 +25,25 @@ const CategoryCard = (props) => {
     // hovering state variable for showing the delete category button or not
     // maybe think about hovering for a number of seconds before showing the delete button ? IDK tho
     const [isHovering, setIsHovering] = useState(false);
+
+    // update state (in categoryMap) so that the new order of LinkBubbles is saved
+    const onDragEnd = (result) => {
+
+        // reorder links of category dependent upon result.source.index and result.destination.index (splice takes it out and puts it back in)
+        const newCatMap = props.categoryMap.map(cat => {
+            if (cat.category._id === props.category.category._id) {
+                const links = Array.from(cat.links);
+                const [reorderedLink] = links.splice(result.source.index, 1);
+                links.splice(result.destination.index, 0, reorderedLink)
+                console.log(reorderedLink);
+                console.log(links);
+                return {...cat, links: links};
+            }
+            return cat
+        });
+
+        props.setCategoryMap(newCatMap);
+    }
 
     const handleMouseOver = () => {
         if (!linkOpen) {
@@ -105,9 +125,24 @@ const CategoryCard = (props) => {
                 </DialogActions>
             </Dialog>
             <div>
-                {props.category.links.map((link, i) => (
-                    <LinkBubble {...props} setLinkOpen={setLinkOpen} isHovering={isHovering} setIsHovering={setIsHovering} showDeleteMessage={showDeleteMessage} setShowDeleteMessage={setShowDeleteMessage} key={i} link={link}/>
-                ))}
+                <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId={props.category.category._id}>
+                        {(provided) => (
+                            <ul className='link-bubble-list' {...provided.droppableProps} ref={provided.innerRef}>
+                            {props.category.links.map((link, i) => (
+                                <Draggable key={link._id} draggableId={link._id} index={i}>
+                                    {(provided) => (
+                                        <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                        <LinkBubble {...props} setLinkOpen={setLinkOpen} isHovering={isHovering} setIsHovering={setIsHovering} showDeleteMessage={showDeleteMessage} setShowDeleteMessage={setShowDeleteMessage} key={i} link={link}/>
+                                    </li>
+                                    )}
+                                </Draggable>
+                            ))}
+                            {provided.placeholder}
+                            </ul>
+                        )}
+                    </Droppable>
+                </DragDropContext>
             </div>
             <Snackbar
                 open={showDeleteMessage}
