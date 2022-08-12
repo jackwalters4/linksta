@@ -72,7 +72,7 @@ const LinkModal = (props) => {
 
     return (<>{props.openModalId === props.link._id ? (
         <div className='link-modal-background'>
-            <div className='link-modal-wrapper' style={{'marginLeft': props.catNumber % 3 == 0 && '-90%', 'marginTop': props.catNumber > 3 && '-75%'}}>
+            <div className='link-modal-wrapper' style={{'marginLeft': props.catNumber % 3 == 0 && '-140%', 'marginTop': props.catNumber > 3 && '-75%'}}>
                 <div className='link-modal-header'>
                     <IconButton className='close-link-modal-button' size="large" onClick={closeModalClicked}>
                         <Close style={{ color: "black" }}/>
