@@ -112,7 +112,7 @@ const Dashboard = (props) => {
                 ))}
                 <Snackbar
                     open={showCatDeleteMessage}
-                    autoHideDuration={4000}
+                    autoHideDuration={2000}
                     onClose={handleDeleteMessageClose}
                     message="Category Deleted"
                 />

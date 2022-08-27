@@ -66,13 +66,13 @@ const Header = (props) => {
             </div>
             <Snackbar
                 open={showAddLinkMessage}
-                autoHideDuration={4000}
+                autoHideDuration={2000}
                 onClose={handleMessageClose}
                 message="Link Added"
             />
             <Snackbar
                 open={showAddCatMessage}
-                autoHideDuration={4000}
+                autoHideDuration={2000}
                 onClose={handleMessageClose}
                 message="Category Added"
             />
