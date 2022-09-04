@@ -104,23 +104,23 @@ const CategoryCard = (props) => {
                     <Button onClick={deleteCategory} autoFocus>Delete</Button>
                 </DialogActions>
             </Dialog>
-            <div>
-                    <Droppable droppableId={props.category.category._id} type="LINK">
-                        {(provided) => (
-                            <ul className='link-bubble-list' {...provided.droppableProps} ref={provided.innerRef}>
-                            {props.category.links.map((link, i) => (
-                                <Draggable key={link._id} draggableId={link._id} index={i}>
-                                    {(provided) => (
-                                        <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                        <LinkBubble {...props} isHovering={isHovering} setIsHovering={setIsHovering} showDeleteMessage={showDeleteMessage} setShowDeleteMessage={setShowDeleteMessage} key={i} link={link}/>
-                                    </li>
-                                    )}
-                                </Draggable>
-                            ))}
-                            {provided.placeholder}
-                            </ul>
-                        )}
-                    </Droppable>
+            <div className='div-scroll'>
+                <Droppable className='drop-div' droppableId={props.category.category._id} type="LINK">
+                    {(provided) => (
+                        <ul className='link-bubble-list' {...provided.droppableProps} ref={provided.innerRef}>
+                        {props.category.links.map((link, i) => (
+                            <Draggable key={link._id} draggableId={link._id} index={i}>
+                                {(provided) => (
+                                    <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                    <LinkBubble {...props} isHovering={isHovering} setIsHovering={setIsHovering} showDeleteMessage={showDeleteMessage} setShowDeleteMessage={setShowDeleteMessage} key={i} link={link}/>
+                                </li>
+                                )}
+                            </Draggable>
+                        ))}
+                        {provided.placeholder}
+                        </ul>
+                    )}
+                </Droppable>
             </div>
             <Snackbar
                 open={showDeleteMessage}

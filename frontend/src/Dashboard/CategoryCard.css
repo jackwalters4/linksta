@@ -12,8 +12,13 @@
     flex-direction: column;
   }
 
+  .div-scroll {
+    overflow-y: auto;
+  }
+
   .link-bubble-list {
     list-style-type:none;
+    min-height: 200px;
   }
 
   .category-card-header {
