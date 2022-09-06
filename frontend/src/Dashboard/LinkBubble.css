@@ -1,6 +1,7 @@
 .link-bubble {
     width: 60%;
-    height: 30px;
+    height: fit-content;
+    min-height: 30px;
     margin-left: 10%;
     border-radius: 10px;
     margin-bottom: 5%;

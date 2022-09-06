@@ -80,7 +80,7 @@ const LinkModal = (props) => {
                     <h2 className='link-form-header'>{props.link.title}</h2>
                 </div>
                 <div className='link-modal-body'>
-                    <a  className='link-modal-url' href={props.link.url}>{props.link.url.substring(0,25)}</a>
+                    <a  className='link-modal-url' href={props.link.url} target="_blank">{props.link.url.substring(0,25)}</a>
                     <label className='link-notes-label'>Notes:</label>
                     <div className='link-notes-section'>
                         {props.link.note}
