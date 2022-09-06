@@ -70,6 +70,13 @@ const Dashboard = (props) => {
 
     }
 
+    const onDragStart = (result) => {
+        // close modal if modal that is being dragged isnt the modal that is open
+        if (result.draggableId !== openModalId) {
+            setOpenModalId('');
+        }
+    }
+
     useEffect (() => {
 
         async function fetchData() {
@@ -105,7 +112,7 @@ const Dashboard = (props) => {
 
     return props.categoryMap === null ?
         (<p>loading ...</p>) : 
-        (<DragDropContext onDragEnd={onDragEnd}>
+        (<DragDropContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
             <div className='dashboard-container'>
                 {props.categoryMap.map((category, index) => (
                     <CategoryCard {...props} openModalId={openModalId} setOpenModalId={setOpenModalId} catNumber={index + 1} showCatDeleteMessage={showCatDeleteMessage} setShowCatDeleteMessage={setShowCatDeleteMessage} key={index} category={category}/>

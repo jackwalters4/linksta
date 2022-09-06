@@ -93,7 +93,7 @@ const CategoryCard = (props) => {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle>Are you sure you want to delete {props.category.category.name}?</DialogTitle>
+                <DialogTitle>Are you sure you want to delete the {props.category.category.name} category?</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                         This will delete all links under the category as well
